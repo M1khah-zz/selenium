@@ -54,7 +54,7 @@
           <version>2.22.2</version>
           <configuration>
             <suiteXmlFiles>
-              <suiteXmlFile>${basedir}/testngXml/${functional}</suiteXmlFile>
+              <suiteXmlFile>${basedir}/testngXml/functional</suiteXmlFile>
             </suiteXmlFiles>
           </configuration>
         </plugin>
