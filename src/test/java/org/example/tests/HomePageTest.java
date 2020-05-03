@@ -1,43 +1,48 @@
 package org.example.tests;
 
-import static org.example.pages.HomePage.CONTENT_TITLE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.example.pages.HomePage.*;
+import static org.testng.Assert.*;
+
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.HomePage;
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.example.pages.HomePage;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class HomePageTest {
 
-    private WebDriver driver;
+    private static WebDriver driver;
 
-    @Before
+    @BeforeClass
     public void setup(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     }
 
-    @Test
+    @Test(priority = 1)
     public void openHomepage() {
         HomePage homePage = new HomePage(driver);
-        assertEquals(true, homePage.checkContentTitleText().equals(CONTENT_TITLE));
+        assertNotEquals(WRONG_CONTENT_TITLE, homePage.getContentTitleText());
     }
 
-    @Test
-    public void fillFirstName() {
-
+    @Test(priority = 2)
+    public void addItem() {
+        HomePage homePage = new HomePage(driver);
+        homePage.setFirstName();
+        homePage.setLastName();
+        homePage.clickAddButton();
+        assertTrue(homePage.vipButton.isDisplayed());
     }
 
-    @After
-    public void quit(){
+    @AfterClass
+    public static void quit(){
         driver.quit();
     }
 
