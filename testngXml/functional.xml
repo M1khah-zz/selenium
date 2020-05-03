@@ -3,7 +3,7 @@
 <suite name="Functional" parallel="false">
     <test name="Search">
         <classes>
-            <class name="com.example.HomePageTest"/>
+            <class name="org.example.tests.HomePageTest"/>
         </classes>
     </test>
 </suite>
